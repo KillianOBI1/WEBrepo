@@ -1,7 +1,8 @@
 var Person = /** @class */ (function () {
-    function Person(firstName, lastName) {
+    function Person(firstName, lastName, age) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.age = age;
     }
     Object.defineProperty(Person.prototype, "fullName", {
         get: function () {
