@@ -1,6 +1,7 @@
 <html>
 	<meta lang="fr">
 	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="css.css">
 	<script>
 		let API_KEY = "888f70e84a4d7e44f3c0d4870c926e9d";
 		let METEO_URL = "http://api.openweathermap.org/data/2.5/forecast?q={VILLE},FR&APPID={API_KEY}&units=metric";
@@ -42,7 +43,7 @@
                    let weath = json.list[i];
 
                    let image = document.createElement('img');
-                   image.src = weath.main.humidity < 80 ? 'sun.png' : 'rain.png';
+                   image.src = weath.main.humidity < 80 ? 'rain.jpg' : 'rain.png';
 
                    let p = document.createElement('p');
                    div.className = "item-weather";
