@@ -1,0 +1,25 @@
+<html>
+	<script>
+		let API_KEY = "888f70e84a4d7e44f3c0d4870c926e9d";
+		let METEO_URL = "http://api.openweathermap.org/data/2.5/forecast?q={VILLE},FR&APPID={API_KEY}&units=metric";
+	</script>
+	<body>
+   <div id="mainContainer">
+       <p id="app-title">Application météo !</p>
+       <div id="search">
+           <input placeholder="rechercher une ville..."
+                  type="text"
+                  id="meteoTI"
+                  onkeydown="meteoSearchHandler(event)">
+           <button onclick="meteoClickHandler(event)">LANCER</button>
+       </div>
+       <div id="weather_title"></div>
+       <div id="weather_results"></div>
+   </div>
+   <div id="loaderContainer">
+       <div class="loader"></div>
+   </div>
+</body>
+</html>
+
+<p>hello world!</p>
