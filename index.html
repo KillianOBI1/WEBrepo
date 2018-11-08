@@ -1,7 +1,63 @@
 <html>
+	<meta lang="fr">
+	<meta charset="UTF-8">
 	<script>
 		let API_KEY = "888f70e84a4d7e44f3c0d4870c926e9d";
 		let METEO_URL = "http://api.openweathermap.org/data/2.5/forecast?q={VILLE},FR&APPID={API_KEY}&units=metric";
+		function meteoSearchHandler(event) {
+			if(event && event.keyCode == 13) {
+				searchMeteo();
+			}
+		}
+		function meteoClickHandler(event) {
+			searchMeteo();
+		}
+		function searchMeteo() {
+			var ville = document.getElementById("meteoTI").value;
+			let url = METEO_URL.replace("{API_KEY}",API_KEY).replace("{VILLE}",ville);
+			console.log(ville);
+			const req = new XMLHttpRequest();
+            req.open('GET', url, true);
+            req.send(null);
+
+            req.onreadystatechange = (event) => {
+            	document.getElementById('loaderContainer').style.visibility = "hidden";
+                if (event.target.status === 200) {
+                   parseResponse(event.target.responseText);
+                } else {
+                   console.log("Status de la réponse: %d (%s)", req.status, req.statusText);
+                }
+            }
+		}
+
+		function parseResponse(value) {
+			let json = JSON.parse(value);
+			console.info(json);
+			var div = document.getElementById("weather_title");
+			div.innerHTML = json.city.name + '('+json.city.coord.lat+','+json.city.coord.lon+')';
+
+			let weather_results = document.getElementById('weather_results');
+			for (let i = 0; i < json.list.length; i++) {
+                   let div = document.createElement("div");
+                   let weath = json.list[i];
+
+                   let image = document.createElement('img');
+                   image.src = weath.main.humidity < 80 ? 'sun.png' : 'rain.png';
+
+                   let p = document.createElement('p');
+                   div.className = "item-weather";
+                   div.style["animation-delay"] = (i * 100) + "ms";
+
+                   let texte = "DATE : " + weath.dt_txt + " <br>Température : " + weath.main.temp + " <br>Humidité : " + weath.main.humidity + " %";
+                   p.innerHTML = texte;
+
+                   div.appendChild(image);
+                   div.appendChild(p);
+
+                   weather_results.appendChild(div);
+               }
+
+		}
 	</script>
 	<body>
    <div id="mainContainer">
@@ -21,5 +77,3 @@
    </div>
 </body>
 </html>
-
-<p>hello world!</p>
